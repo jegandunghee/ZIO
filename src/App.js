@@ -1,53 +1,37 @@
-
-import { Routes, Route} from "react-router-dom";
+// src/App.js
+import { Routes, Route } from "react-router-dom";
 import Layout from "./layout/Layout";
-import HomePage from "./pages/Home/HomePage";
-import ParkingDetailPage from "./pages/Detail/ParkingDetailPage";
-import TicketReservation from "./pages/Detail/TicketReservation";
-import LoginPage from "./pages/Auth/LoginPage";
-import SignUpPage from "./pages/Auth/SignUpPage";
-import MyPage from "./pages/MyPage/MyPage";
-import ChangeCarNumber from "./pages/MyPage/ChangeCarNumber";
-import ChangePayment from "./pages/MyPage/ChangePayment";
-import Receipt from "./pages/MyPage/Receipt";
-import ReservationList from "./pages/ReservationList/ReservationList";
-import Tip from "./pages/Tip/Tip"
-import "./App.scss"
+
+import MainPage from "./pages/MainPage";
+import ReservationPage from "./pages/ReservationPage";
+import PaymentPage from "./pages/PaymentPage";
+import MyPage from "./pages/MyPage";
+import Tip from "./pages/Tip";
+
+import "./App.scss";
 
 const App = () => {
   return (
     <Routes>
-      <Route element={<Layout/>}> 
-      <Route path="/" element={<HomePage />}/>
-      <Route
-         path="/parking/:parkingId" 
-         element={<ParkingDetailPage/>}/>
-          <Route
-          path="/parking/:parkingId/reserve"
-          element={<TicketReservation />}
-        />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+      {/* 공통 레이아웃 */}
+      <Route element={<Layout />}>
+        {/* 메인 홈 */}
+        <Route path="/" element={<MainPage />} />
 
+        {/* 주차장 상세/예약 */}
+        <Route path="/parking/:parkingId" element={<ReservationPage />} />
+
+        {/* 결제 페이지 */}
+        <Route path="/payment" element={<PaymentPage />} />
+
+        {/* 마이페이지 */}
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/mypage/car" element={<ChangeCarNumber />} />
-        <Route path="/mypage/payment" element={<ChangePayment />} />
-        <Route
-          path="/mypage/receipt/:reservationId"
-          element={<Receipt />}
-        />
 
-        <Route
-          path="/reservationlist"
-          element={<ReservationList />}
-        />
-
-        
+        {/* 팁 페이지 */}
         <Route path="/tip" element={<Tip />} />
-
       </Route>
     </Routes>
-  )
-}
+  );
+};
 
-export default App
+export default App;
