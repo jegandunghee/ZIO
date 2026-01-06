@@ -12,10 +12,9 @@
 * **Framework:** React.js
 * **Styling:** SCSS
 * **Data Handling:** Supabase
-* **Design & Tool:** **Figma**, Git, GitHub
+* **Design & Tool:** **Figma**,Illustrator, Photoshop, Git, GitHub
 
 ## 3. 기획 및 디자인 (Planning & Design)
-* **Tool:** Figma ,Illustrator, Photoshop
 * **Concept:** 사용자 직관성을 고려한 UI/UX 설계 및 와이어프레임 제작
 
 ## 4. 디렉토리 구조
