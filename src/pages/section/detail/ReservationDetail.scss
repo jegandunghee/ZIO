@@ -2,7 +2,6 @@
 @use "../../../assets/scss/variables" as *;
 @use "../../../assets/scss/mixins" as *;
 
-/* 전체 맵 */
 .parking-map {
   position: relative;
   @include flex-layout();

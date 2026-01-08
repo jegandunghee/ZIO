@@ -2,32 +2,31 @@
 @use "../../../assets/scss/variables" as *;
 @use "../../../assets/scss/mixins" as *;
 .detail-page {
-  position: relative;   
+  position: relative;
   min-height: 100vh;
       background: $color-555;
   .detail-page-map{
-  height: calc(100vh - 80px); 
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
 }
 
     .parking-scroll {
-  flex: 1;              
-  overflow-y: auto;    
+  flex: 1;
+  overflow-y: auto;
   @include flex-layout();
 }
   }
   .reserve-popup-overlay {
   position: absolute;
-  inset: 0;                         
-  background: rgba(0, 0, 0, 0.25);   
-  backdrop-filter: blur(4px);        
-  -webkit-backdrop-filter: blur(6px); 
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(6px);
   @include flex-layout();
   padding: 2rem;
-  z-index: 50;                    
+  z-index: 50;
 }
-
 
 /* 팝업 박스 */
 .reserve-popup {
@@ -39,7 +38,7 @@
   background: #ffffff;
   padding: 1.5rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  
+
 .reserve-popup-close {
   position: absolute;
   top: 8px;
@@ -86,14 +85,3 @@
 }
 }
 }
-
-
-
-
-
-
-
-
-
-
-
