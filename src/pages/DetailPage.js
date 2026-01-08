@@ -79,8 +79,8 @@ const DetailPage = () => {
           selectedCode={selectedBox?.space_code}
           onSelect={handleSelectBox}
         />
-        <ReservationInfo space={selectedBox} />
         </div>
+        <ReservationInfo space={selectedBox} />
       </section>
       
 

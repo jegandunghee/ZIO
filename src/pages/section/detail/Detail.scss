@@ -4,14 +4,18 @@
 .detail-page {
   position: relative;   
   min-height: 100vh;
+      background: $color-555;
   .detail-page-map{
-    height: 100%;
-    overflow-y: auto;
-    background: $color-555;
-    .parking-scroll{
-      position: relative;
-      padding-bottom: 0.5rem;
-    }
+  height: calc(100vh - 80px); 
+  display: flex;
+  flex-direction: column;
+}
+
+    .parking-scroll {
+  flex: 1;              
+  overflow-y: auto;    
+  @include flex-layout();
+}
   }
   .reserve-popup-overlay {
   position: absolute;
@@ -23,14 +27,14 @@
   padding: 2rem;
   z-index: 50;                    
 }
-}
+
 
 /* 팝업 박스 */
 .reserve-popup {
   @include caption-r();
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 350px;
   border-radius: 1.4rem;
   background: #ffffff;
   padding: 1.5rem;
