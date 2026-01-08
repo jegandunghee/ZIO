@@ -1,7 +1,7 @@
 import "./Payment.scss";
-import { useAuth } from "../../../contexts/AuthContext";
-import { useReservation } from "../../../contexts/ReservationContext";
-import { getPaymentInfo } from "../../../api/zioApi";
+// import { useAuth } from "../../../contexts/AuthContext";
+// import { useReservation } from "../../../contexts/ReservationContext";
+// import { getPaymentInfo } from "../../../api/zioApi";
 
 const Payment = () => {
   return (
