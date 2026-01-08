@@ -26,7 +26,7 @@ const ParkingInfo = () => {
   };
 
   return (
-    <div className="payment-p-info">
+    <div id="payment-p-info">
       <img src={ParkImg} alt="주차장 사진" />
       <div className="parking-info">
         <h1>아무개 주차장</h1>
