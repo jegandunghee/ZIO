@@ -1,3 +1,5 @@
+import { IoIosArrowForward } from "react-icons/io";
+
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import "./Member.scss";
@@ -10,14 +12,35 @@ const Member = () => {
 
   // AuthContext에서 현재 로그인한 회원정보
   const { user, authType } = useAuth();
-  const userId = user?.id;
+  // const userId = user?.id;
+  const userId = '이서연';
+
 
   // DB에서 가져온 프로필 (users) / 이용내역 (reservation)
   const [profile, setProfile] = useState(null);
   const [history, setHistory] = useState([]);
 
-  // ✅ 시안처럼 4개만 보여줄 배열 (원본 history를 가공한 "화면용 데이터")
-  const viewHistory = (history || []).slice(0, 4);
+  // 시안처럼 4개만 보여줄 배열 (원본 history를 가공한 "화면용 데이터")
+  // const viewHistory = (history || []).slice(0, 4);
+  // "이용중" 판별 함수
+  const isInUse = (status) => status === "USING" || status === "RESERVED";
+
+  // 1. 이용중 먼저, 2. 그 다음 최신순, 3. 최대 4개만
+  const viewHistory = (history || [])
+    .slice() // 원본 배열 보호
+    .sort((a, b) => {
+      // 1 이용중 여부로 먼저 정렬
+      const aUsing = isInUse(a.status);
+      const bUsing = isInUse(b.status);
+
+      if (aUsing !== bUsing) {
+        return bUsing - aUsing; // true(1) 가 false(0) 보다 앞으로
+      }
+
+      // 2 둘 다 같은 그룹이면 최신순(created_at 기준)
+      return new Date(b.created_at) - new Date(a.created_at);
+    })
+    .slice(0, 4); // 3 최대 4개만
 
   // 로딩 / 에러 상태
   const [loading, setLoading] = useState(false);
@@ -28,8 +51,10 @@ const Member = () => {
   const [carInput, setCarInput] = useState("");
   const [saving, setSaving] = useState(false);
 
-  // ✅ 이용내역 접기/펼치기 상태 (시안: 화살표 눌렀을 때 열리고 닫힘)
+  // 이용내역 접기/펼치기 상태 (시안: 화살표 눌렀을 때 열리고 닫힘)
   const [isHistoryOpen, setIsHistoryOpen] = useState(true);
+  const toggleHistory = () => setIsHistoryOpen((v) => !v);
+
 
   useEffect(() => {
     // userId가 없으면 (아직 로그인 안 했으면) DB 호출 안 함
@@ -44,7 +69,8 @@ const Member = () => {
 
         // 프로필 + 이용내역 병렬 호출
         const [p, h] = await Promise.all([
-          getProfile(userId),            // users 테이블
+          // getProfile(userId),            // users 테이블
+          getProfile('이서연'),            // users 테이블
           getLittleReservation(userId),  // reservation 테이블 (최대 5개)
         ]);
 
@@ -68,14 +94,16 @@ const Member = () => {
     };
   }, [userId]);
 
-  // if (loading) return null;
-  // if (!profile) return null;
+
+  if (!userId) return null;
+  if (loading) return null;
+  if (!profile) return null;
 
 
-  // 개발 중이라 DB / 로그인 없어도 화면 만들 수 있게 임시 fallback
-  // 개발 완료 후에는 profile.id / profile.car_num 만 쓰면 됨
-  const viewUserId = profile?.id ?? userId ?? "임시회원ID";
-  const viewCarNum = profile?.car_num ?? "351로 8349(임시)";
+  // // 개발 중이라 DB / 로그인 없어도 화면 만들 수 있게 임시 fallback
+  // // 개발 완료 후에는 profile.id / profile.car_num 만 쓰면 됨
+  // const viewUserId = profile?.id ?? userId ?? "임시회원ID";
+  // const viewCarNum = profile?.car_num ?? "351로 8349(임시)";
 
 
   // 차량정보 수정
@@ -90,7 +118,7 @@ const Member = () => {
     setIsCarModalOpen(false);
   };
 
-  // ✅ 차량번호 저장(DB 업데이트) → 성공 시 profile 즉시 갱신
+  //  차량번호 저장(DB 업데이트) → 성공 시 profile 즉시 갱신
   const handleSaveCarNum = async () => {
     if (!userId) {
       alert("로그인 후 이용해주세요.");
@@ -106,8 +134,8 @@ const Member = () => {
     try {
       setSaving(true);
       const updated = await updateCarNum({ userId, carNum: nextCar });
-      setProfile(updated);          // ✅ 화면 즉시 반영
-      setIsCarModalOpen(false);     // ✅ 모달 닫기
+      setProfile(updated);          //  화면 즉시 반영
+      setIsCarModalOpen(false);     //  모달 닫기
     } catch (e) {
       alert(e?.message ?? "차량정보 변경 실패");
     } finally {
@@ -115,16 +143,16 @@ const Member = () => {
     }
   };
 
-  // ✅ 이용권 표기 통일 함수 (DB 값 → 화면 텍스트)
+  //  이용권 표기 통일 함수 (DB 값 → 화면 텍스트)
   const getPayTypeLabel = (payType) => {
     if (payType === "정기권") return "정기권";
     return "시간제";
   };
 
-  // ✅ 상태 표기 통일 함수 (DB 값 → 화면 텍스트)
+  //  상태 표기 통일 함수 (DB 값 → 화면 텍스트)
   const getStatusLabel = (status) => {
     if (status === "USING") return "이용 중";
-    if (status === "RESERVED") return "이용 중"; // 필요 없으면 삭제 가능
+    if (status === "RESERVED") return "이용 중";
     return "이용 완료";
   };
 
@@ -141,8 +169,8 @@ const Member = () => {
               <FaUserCircle />
             </div>
             <div className="user-name">
-              {viewUserId}
-              {/* {profile.id} */}
+              {/* {viewUserId} */}
+              {profile.id}
               {/* 개발 완료 후 위 주석 제거 */}
             </div>
           </div>
@@ -153,8 +181,8 @@ const Member = () => {
               <p>내 차 정보</p>
             </div>
             <div className="car-num">
-              {viewCarNum}
-              {/* {profile.car_num} */}
+              {/* {viewCarNum} */}
+              {profile.car_num}
               {/* 개발 완료 후 위 주석 제거 */}
             </div>
             <div className="car-btn">차량정보수정</div>
@@ -171,11 +199,15 @@ const Member = () => {
         <p
           type="button"
           className="member-history__header"
-          onClick={() => setIsHistoryOpen((v) => !v)}
+          onClick={toggleHistory}
           aria-expanded={isHistoryOpen}
         >
           <span className="member-history__title">이용 내역</span>
-          <span className="member-history__arrow">∨</span>
+          <span className={`member-history__arrow ${isHistoryOpen ? "is-open" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();  // 겹쳐서 두번 토글방지 코드
+              toggleHistory();
+            }}><IoIosArrowForward /></span>
         </p>
 
         {/* 열렸을 때만 렌더링 (접히면 DOM 자체가 사라짐) */}
@@ -185,25 +217,35 @@ const Member = () => {
               <div className="member-history__empty">이용 내역이 없습니다.</div>
             ) : (
               <ul className="member-history__list">
-                {viewHistory.map((item) => (
-                  <li className="member-history__item" key={item.id}>
-                    <span
-                      className={`member-history__badge ${getPayTypeLabel(item.pay_type) === "정기권"
-                          ? "is-pass"
-                          : "is-time"
-                        }`}
+                {viewHistory.map((item) => {
+                  const usingNow = isInUse(item.status); // USING or RESERVED
+
+                  const payLabel = getPayTypeLabel(item.pay_type); // "정기권" | "시간제"
+
+                  return (
+                    <li
+                      className={`member-history__item ${usingNow ? "is-using" : "is-done"}`}
+                      key={item.id}
                     >
-                      {getPayTypeLabel(item.pay_type)}
-                    </span>
+                      <span
+                        className={`member-history__badge
+                          ${payLabel === "정기권" ? "is-pass" : "is-time"}
+                          ${usingNow ? "is-using" : "is-done"} `}
+                      >
+                        {payLabel}
+                      </span>
 
-                    <span className="member-history__status">
-                      {getStatusLabel(item.status)}
-                    </span>
-
-                    <span className="member-history__chev">{">"}</span>
-                  </li>
-                ))}
+                      <p className="member-history__right">
+                        <span className="member-history__status">
+                          {getStatusLabel(item.status)}
+                        </span>
+                        <span className="member-history__chev">{">"}</span>
+                      </p>
+                    </li>
+                  );
+                })}
               </ul>
+
             )}
           </div>
         )}
