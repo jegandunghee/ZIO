@@ -25,7 +25,7 @@
   background: #fff;
   border-radius: 16px;
   padding: 16px;
-  transform: translateY(100%); // ⭐️ 화면 아래에 숨김
+  transform: translateY(100%); 
   opacity: 1;
   transition: transform 260ms ease;
   z-index: 9999;
@@ -33,10 +33,32 @@
   will-change: transform;
 
   &.is-open {
-    transform: translateY(-30%); // ⭐️ 위로 올라옴
+    transform: translateY(-30%); 
   }
 }
 }
+      input{
+            position: fixed;
+            transition: transform 0.3s ease;
+            text-align: center;
+            // bottom: 0;
+            // transform: translateY(-90px);
+            width: 200px;
+            z-index: 9999; // 지도 위로
+            padding: 0.5rem;
+            @include caption-r();
+            border-radius: 15px;
+            border: none;
+            background-color: rgba(148, 148, 148, 0.25);
+            box-shadow: 0 3px 3px rgba($color: #000000, $alpha: 0.33);
+            backdrop-filter: saturate(100%) blur(5px);
+            
+        &:focus{
+            width: 300px;
+            outline: none;
+            border: 0.5px solid rgba(148, 148, 148, 0.45);
+        }
+    }
 .popup-close {
   position: relative;
   left: 100%;
@@ -58,8 +80,8 @@
 
 .popup-list {
   position: relative;
-  transform: translateY(-25%);
-  max-height: 280px;
+  transform: translateY(-15%);
+  max-height: 220px;
   overflow-y: auto;
   &::-webkit-scrollbar {
     display: none;
@@ -70,7 +92,7 @@
 
   // IE, 옛 Edge (이제 쓸 일 없지만)
   -ms-overflow-style: none;
-  padding: 50px 0;
+  padding: 10px 0;
   li {
     cursor: pointer;
     @include flex-layout(row,left);
