@@ -1,4 +1,5 @@
 import "./ReservationInfo.scss";
+// import { FaRegCopy } from "react-icons/fa";
 
 const ReservationInfo = ({ lot, selectedBox, onReserve, isMobile }) => {
   return (
@@ -11,7 +12,7 @@ const ReservationInfo = ({ lot, selectedBox, onReserve, isMobile }) => {
               {lot?.parking_name || "주차장 이름"}
             </p>
             <p className="parking-card-addr">
-              {lot?.address || "주차장 주소"}
+              {lot?.address || "주차장 주소"} 
             </p>
           </div>
         </div>
@@ -19,13 +20,13 @@ const ReservationInfo = ({ lot, selectedBox, onReserve, isMobile }) => {
         /* 데스크탑에서는 사진+상세 들어와야함 */
         <div className="parking-header-desktop">
         {/* 바로 여긔 */}
-        <iframe
+        {/* <iframe
       className="parking-panorama"
       src="https://skybox.blockadelabs.com/f624a4b39d495a89f8bcb6b23270aada"
       title="주차장 파노라마"
       allow="fullscreen; accelerometer; gyroscope"
       allowFullScreen
-    />
+    /> */}
   </div>
       )}
 

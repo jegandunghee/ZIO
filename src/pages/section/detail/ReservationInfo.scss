@@ -2,7 +2,8 @@
 @use "../../../assets/scss/variables" as *;
 @use "../../../assets/scss/mixins" as *;
 
-@media (max-width: 767px) {
+
+
   .parking-scroll {
     position: relative;
     height: calc(100vh - 120px);
@@ -16,7 +17,7 @@
   .parking-card {
     position: fixed;
     left: 50%;
-    bottom: 110px;
+    bottom: 150px;
     transform: translateX(-50%);
     width: 70%;
     padding: 0.5rem 0.5rem;
@@ -24,6 +25,9 @@
     background: $color-white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     @include flex-layout(row, flex-start, center, 1rem);
+    @include respond{
+      display: none;
+    }
 
     &-img {
       width: 50px;
@@ -54,7 +58,7 @@
       text-overflow: ellipsis;
     }
   }
-}
+
 
 .reservation-info {
   .parking-header-desktop {
@@ -95,3 +99,28 @@
   @include btn-theme();
   width: 100%;
 }
+
+
+// .copy-toast {
+//       width: 60px;
+//       height: 25px;
+//       position: absolute;
+//       left: 68%;
+//       transform: translateX(-50%) translateY(10px);
+//       top: 20px;
+//       background: #7F31BC;
+//       color: #fff;
+//       padding-top: 6px;
+//       border-radius: 1rem;
+//       font-size: 14px;
+//       text-align: center;
+//       opacity: 0;
+//       pointer-events: none;
+//       transition: opacity 0.2s ease, transform 0.2s ease;
+//       z-index: 10;
+//     }
+
+//     .copy-toast.show {
+//       opacity: 1;
+//       transform: translateX(-50%) translateY(0);
+//     }
