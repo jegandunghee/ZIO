@@ -81,7 +81,7 @@ const ReservationInfo = ({ selectedBox, onReserve, isMobile }) => {
           <button
             type="button"
             className="reserve-popup-button"
-            onClick={onReserve}
+            onClick={handleReserve}
             disabled={!selectedBox}
           >
             예약하기
