@@ -6,7 +6,6 @@ import "../App.scss"
 
 const MainPage = () => {
   const { lots } = useParking()
-
   const [open, setOpen] = useState(false)
   const [keyword, setKeyword] = useState("")
   const [view, setView] = useState("list")

@@ -1,6 +1,6 @@
 // AuthPage.js
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 import kakao from "../assets/images/social_logo/kakao.png";
@@ -12,9 +12,7 @@ import "./AuthPage.scss";
 const AuthPage = () => {
   const navigate = useNavigate();
   const { loginUser, loading } = useAuth();
-  //주차장 정보
-   const { state } = useLocation()
-  const parking = state?.parking
+  
 
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
@@ -30,8 +28,6 @@ const AuthPage = () => {
       alert(error.message); // 
     }
   };
-  // parking이 없으면 직링/새로고침 케이스라 처리 필요
-  if (!parking) return <div>주차장 정보 없음</div>
   return (
     <div className="auth-page">
       <h2>로그인</h2>
