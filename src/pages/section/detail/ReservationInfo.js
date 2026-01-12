@@ -2,8 +2,14 @@ import "./ReservationInfo.scss";
 import { useParking } from "../../../contexts/ParkingContext";
 import { useEffect, useState } from "react";
 import Popup from "../../../components/common/Popup";
+import { useNavigate } from "react-router-dom";
 
 const ReservationInfo = ({ selectedBox, onReserve, isMobile }) => {
+  const navigate = useNavigate();
+
+ const handleReserve = () => {
+    navigate("/payment");
+  };
   const { lots, lotDetail } = useParking();
 
   const [keyword, setKeyword] = useState("");

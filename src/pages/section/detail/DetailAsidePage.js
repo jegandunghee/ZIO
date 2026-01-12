@@ -4,23 +4,23 @@ import { useParking } from "../../../contexts/ParkingContext";
 
 const DetailAsidePage = () => {
   const navigate = useNavigate();
-  const { detailLot, selectedSpace } = useParking();
+  const { lotDetail, selectedSpace } = useParking();
 
   const goPayment = () => {
-    if (!detailLot || !selectedSpace) return;
+    if (!lotDetail || !selectedSpace) return;
     navigate("/payment", {
       state: {
-        lotId: detailLot.id,
+        lotId: lotDetail.id,
         spaceId: selectedSpace.id,
         spaceCode: selectedSpace.space_code,
         spaceType: selectedSpace.space_type,
       },
     });
   };
-
+console.log("selectedSpace:", selectedSpace);
   return (
     <ReservationInfo
-      lot={detailLot}
+      lot={lotDetail}
       selectedBox={selectedSpace}
       onReserve={goPayment}
       isMobile={false}
