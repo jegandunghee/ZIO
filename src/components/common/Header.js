@@ -1,29 +1,63 @@
 import "./Header.scss";
-import { CgProfile } from "react-icons/cg";
-import Logo from "../../assets/images/logo/zio-logo.png"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"
+import { CgProfile } from "react-icons/cg"
+import { useAuth } from "../../contexts/AuthContext";
+import Logo from "../../assets/images/logo/zio-logo.png"; // 경로는 너 프로젝트 맞춰
 
 const Header = () => {
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate("/", { replace: true })
+  }
+
   return (
     <header>
       {/* 로고 */}
-      <Link to={'/'}>
+      <Link to="/">
         <div className="logo">
           <img src={Logo} alt="logo" />
         </div>
       </Link>
 
-      {/* 로그인 버튼 */}
-      <Link to={'/auth'}>
+      {/* 로그인 상태 분기 */}
+      {user ? (
         <div className="login">
           <div className="icon">
-            <CgProfile/>
+            <button>
+            <CgProfile />
+            <Link to="/mypage">
+              <p style={{ marginLeft: 12 }}>마이페이지</p>
+            </Link>
+            </button>
           </div>
 
-            <p>로그인</p>
-        </div>
-      </Link>
+          
+          {/* <button>{user.userId ?? user.id ?? "USER"}</button> */}
 
+
+          <button
+            type="button"
+            onClick={handleLogout}
+            style={{ marginLeft: 12 }}
+          >
+            로그아웃
+          </button>
+        </div>
+      ) : (
+        <Link to="/auth">
+          <div className="login">
+            <div className="icon">
+              <button>
+                <CgProfile />
+                <p>로그인</p>
+              </button>
+            </div>
+          </div>
+        </Link>
+      )}
     </header>
   )
 }

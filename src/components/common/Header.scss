@@ -23,23 +23,15 @@ header{
         }
     }
     .login{
-        cursor: pointer;
-        width: 80px;
-        height: 30px;
-        background-color: $color-sub;
-        border-radius: 1rem;
-        @include flex-layout($gap:0.3rem);
-        @include caption-r;
-        // 아이콘 위치 조정
-        .icon { @include flex-layout(); }
-        // 텍스트 위치 조정
-        p { margin-top: 0.3rem; }
-
-        // 로그인 버튼 hover 시
-        &:hover{
-            background-color: $color-main;
-            color: #fff;
+        @include flex-layout(row,space-around);
+        
+        button{
+            cursor: pointer;
+            @include btn-theme($bg:#7F31BC,$hover-bg:#B67FDB,$color:#ddd);
+            width: auto;
+            height: 15px;      
         }
+
         
     }
 }
